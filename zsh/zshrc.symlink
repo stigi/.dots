@@ -18,7 +18,6 @@ setopt multios      # enable piping to multiple outputs
 setopt auto_cd      # automatically cd into directories when typing their name
 setopt cdable_vars  # try to expand the expression as if it were preceded by a ‘~’
 setopt auto_pushd   # make cd push the old directory onto the directory stack
-setopt auto_menu    # use menu completion
 setopt correct      # try to correct the spelling of commands
 
 
