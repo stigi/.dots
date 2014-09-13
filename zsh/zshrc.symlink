@@ -1,0 +1,53 @@
+# We're going to need UTF-8, badly
+LANG=en_US.UTF-8
+
+# Source all zsh config files excluding the plugins directory
+DOTFILES_DIR=$HOME/.dots
+
+# .localrc is a place to put host specific stuff
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi
+
+# ZSH options
+# http://zsh.sourceforge.net/Doc/Release/Options.html
+setopt globdots     # Enable globbing for hidden files
+setopt extendedglob # advanced globbing
+setopt multios      # enable piping to multiple outputs
+setopt auto_cd      # automatically cd into directories when typing their name
+setopt cdable_vars  # try to expand the expression as if it were preceded by a ‘~’
+setopt auto_pushd   # make cd push the old directory onto the directory stack
+setopt auto_menu    # use menu completion
+setopt correct      # try to correct the spelling of commands
+
+
+# Load all dotfile components in 3 steps
+# all of our zsh files
+typeset -U config_files
+config_files=($DOTFILES_DIR/**/*.zsh)
+
+# 1. load envs (exports and stuff)
+for file in ${(M)config_files:#*/env.zsh}
+do
+  source $file
+done
+
+# 2. load everything but envs and completions
+for file in ${${config_files:#*/env.zsh}:#*/completion.zsh}
+do
+  source $file
+done
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit -i   # -i silently ignores "insecure" files
+
+# 3. load completions after autocomplete loaded
+for file in ${(M)config_files:#*/completion.zsh}
+do
+  source $file
+done
+
+# clean up
+unset config_files
