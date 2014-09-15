@@ -7,6 +7,7 @@
 [alias]
   co      = checkout
   st      = status
+  df      = diff
   subup   = submodule update --recursive --init
   puff    = pull --ff --ff-only
   unstage = reset HEAD --
