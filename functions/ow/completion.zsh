@@ -1,4 +1,4 @@
-export PROJECTS_DIR="~/Work/Projects"
+export PROJECTS_DIR="$HOME/Work/Projects"
 
 function _work_complete () {
   reply = ()
