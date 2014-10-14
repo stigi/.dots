@@ -1,5 +1,5 @@
 # Enable colors
-source ~/.dotfiles/zsh/spectrum.zsh
+source $DOTFILES_DIR/zsh/spectrum.zsh
 autoload colors && colors
 
 # Enable substitutions
