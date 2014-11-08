@@ -1,3 +1,23 @@
+" Pathogen
+call pathogen#infect()
+syntax on
+filetype plugin indent on
+
+" Theme
+syntax enable
+"set background=dark
+"colorscheme solarized
+let g:zenburn_high_Contrast = 1
+colorscheme zenburn
+
+if has("gui_running")
+  set guioptions=gM
+end
+
+if &term == "screen" || &term == "xterm"
+  set t_Co=256
+end
+
 " Enable syntax highlighting
 syntax on
 
@@ -51,3 +71,25 @@ highlight SpecialKey ctermfg=DarkGrey
 
 " Color line numbers
 highlight LineNr ctermfg=DarkGrey
+
+" Search tags recursively upwards
+set tags=tags;/
+autocmd FileType php setlocal iskeyword+=:,-
+
+
+" 80 chars width max
+"set colorcolumn=81,101 " absolute columns to highlight "
+"set colorcolumn=+1,+21 " relative (to textwidth) columns to highlight "
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
+" highlight tabs
+syn match tab display "\t"
+hi link tab Error
+
+set pastetoggle=<F2>
+
+set wildmode=list,full,longest
+
+inoremap <tab> <C-N>
+
