@@ -1,0 +1,67 @@
+ZSH_THEME_HG_PROMPT_COLOR=$FG[045]
+ZSH_THEME_HG_PROMPT_BOOKMARK_COLOR=$FG[063]
+
+ZSH_THEME_HG_PROMPT_AHEAD_COLOR=$FG[118]
+ZSH_THEME_HG_PROMPT_BEHIND_COLOR=$FG[009]
+
+ZSH_THEME_HG_PROMPT_PREFIX="%{$ZSH_THEME_HG_PROMPT_COLOR%}hg:("
+ZSH_THEME_HG_PROMPT_SUFFIX="%{$ZSH_THEME_HG_PROMPT_COLOR%})%{$reset_color%}"
+
+ZSH_THEME_HG_PROMPT_DIRTY="$FG[009] ○ "
+ZSH_THEME_HG_PROMPT_CLEAN=" "
+
+
+function in_hg() {
+  if [[ -d .hg ]] || $(hg summary > /dev/null 2>&1); then
+    echo 1
+  fi
+}
+
+function hg_bookmark() {
+  BOOKMARK=$(hg bookmarks 2> /dev/null | awk '/\*/ { printf $2 }')
+  if [ $BOOKMARK ]; then
+    echo "$ZSH_THEME_HG_PROMPT_BOOKMARK_COLOR$BOOKMARK"
+  fi
+  unset BOOKMARK
+}
+
+function hg_branch() {
+  echo "$ZSH_THEME_HG_PROMPT_BOOKMARK_COLOR$(hg branch)"
+}
+
+function hg_prompt {
+  if [ $(in_hg) ]; then
+    echo "$ZSH_THEME_HG_PROMPT_PREFIX$(hg_branch)/$(hg_bookmark)$ZSH_THEME_HG_PROMPT_SUFFIX$(hg_dirty)"
+  fi
+}
+
+function hg_short_prompt {
+  if [ $(in_hg) ]; then
+    echo "$ZSH_THEME_HG_PROMPT_PREFIX$(hg_bookmark)$ZSH_THEME_HG_PROMPT_SUFFIX$(hg_dirty)"
+  fi
+}
+
+function hg_dirty_choose {
+  if [ $(in_hg) ]; then
+    hg status 2> /dev/null | grep -Eq '^\s*[ACDIM!?L]'
+    if [ $pipestatus[-1] -eq 0 ]; then
+      # Grep exits with 0 when "One or more lines were selected", return "dirty".
+      echo $1
+    else
+      # Otherwise, no lines were found, or an error occurred. Return clean.
+      echo $2
+    fi
+  fi
+}
+
+function hg_dirty {
+  hg_dirty_choose $ZSH_THEME_HG_PROMPT_DIRTY $ZSH_THEME_HG_PROMPT_CLEAN
+}
+
+function hgic() {
+    hg incoming "$@" | grep "changeset" | wc -l
+}
+
+function hgoc() {
+    hg outgoing "$@" | grep "changeset" | wc -l
+}
