@@ -12,7 +12,13 @@ source $DOTFILES_DIR/zsh/prompt-git
 source $DOTFILES_DIR/zsh/prompt-hg
 
 function ssh_prompt() {
-  if [ $SSH_CONNECTION ]; then echo "%{$fg_bold[white]%}%M "; fi
+  if [ $SSH_CONNECTION ]; then
+    if [ "$cols" -gt 70 ]; then
+      echo "%{$fg_bold[white]%}%M "
+    else
+      echo "%{$fg_bold[white]%}%m "
+    fi
+  fi
 }
 
 function left_prompt() {
