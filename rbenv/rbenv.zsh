@@ -2,7 +2,7 @@
 
 export RBENV_ROOT=/usr/local/var/rbenv
 
-if test $(which rbenv &>/dev/null)
+if [ -d $RBENV_ROOT ]
 then
   eval "$(rbenv init -)"
 fi
