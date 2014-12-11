@@ -42,6 +42,8 @@ function hg_short_prompt {
 }
 
 function hg_dirty_choose {
+  echo $2
+  return
   if [ $(in_hg) ]; then
     hg status 2> /dev/null | grep -Eq '^\s*[ACDIM!?L]'
     if [ $pipestatus[-1] -eq 0 ]; then

@@ -8,8 +8,8 @@ setopt prompt_subst
 # Theme colors
 ZSH_THEME_PROMPT_PATH_COLOR=$FG[214]
 
-source $DOTFILES_DIR/zsh/prompt-git
-source $DOTFILES_DIR/zsh/prompt-hg
+source $DOTFILES_DIR/git/prompt
+source $DOTFILES_DIR/hg/prompt
 
 function ssh_prompt() {
   if [ $SSH_CONNECTION ]; then
