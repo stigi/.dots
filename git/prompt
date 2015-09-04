@@ -125,7 +125,8 @@ function git_dirty_state() {
 function git_prompt() {
   sha="$(git_short_sha)"
   if [ -n "$sha" ]; then
-    echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(git_branch_state)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+    #echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(git_branch_state)$ZSH_THEME_GIT_PROMPT_SUFFIX$(git_dirty_state)"
+    echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(git_branch_state)$ZSH_THEME_GIT_PROMPT_SUFFIX "
   fi
 }
 

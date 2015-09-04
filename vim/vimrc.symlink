@@ -87,6 +87,8 @@ match OverLength /\%81v.\+/
 syn match tab display "\t"
 hi link tab Error
 
+" use spaces for indentation and use an indentation of 2
+set tabstop=2 shiftwidth=2 expandtab
 set pastetoggle=<F2>
 
 set wildmode=list,full,longest
