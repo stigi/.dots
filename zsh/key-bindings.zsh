@@ -10,3 +10,8 @@ bindkey "\e[3~" delete-char
 
 # Reverse search ^R
 bindkey "^R" history-incremental-search-backward
+
+# Force VI Mode
+bindkey -v
+
+export KEYTIMEOUT=1
