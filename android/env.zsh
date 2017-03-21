@@ -1,12 +1,12 @@
 # Android
-if [ -d ~/android-sdk-macosx ]; then
-  export ANDROID_HOME=~/android-sdk-macosx
+if [ -d ${HOME}/Library/Android/sdk ]; then
+  export ANDROID_HOME=${HOME}/Library/Android/sdk
 fi
 
-if [ -d ~/android-sdk-macosx/tools ]; then
-  export PATH=$PATH:~/android-sdk-macosx/tools
+if [ -d ${ANDROID_HOME}/tools ]; then
+  export PATH=${PATH}:${ANDROID_HOME}/tools
 fi
 
-if [ -d ~/android-sdk-macosx/platform-tools ]; then
-  export PATH=$PATH:~/android-sdk-macosx/platform-tools
+if [ -d ${ANDROID_HOME}/platform-tools ]; then
+  export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 fi
