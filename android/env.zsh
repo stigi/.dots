@@ -10,3 +10,5 @@ fi
 if [ -d ${ANDROID_HOME}/platform-tools ]; then
   export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 fi
+
+function emulator { ( cd "$(dirname "$(whence -p emulator)")" && ./emulator "$@"; ) }
