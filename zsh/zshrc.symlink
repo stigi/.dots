@@ -66,6 +66,7 @@ source $ZPLUG_HOME/init.zsh
 
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug 'supercrabtree/k'
+zplug 'rupa/z', use:z.sh
 
 zplug load
 
