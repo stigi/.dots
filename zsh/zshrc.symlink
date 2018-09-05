@@ -58,6 +58,7 @@ unset config_files
 
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.npm-packages/bin:$PATH"
 
 # zplug ZSH plugins
 export ZPLUG_HOME=/usr/local/opt/zplug
@@ -67,3 +68,5 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug 'supercrabtree/k'
 
 zplug load
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
