@@ -7,6 +7,10 @@ if [ -d ${ANDROID_HOME}/tools ]; then
   export PATH=${PATH}:${ANDROID_HOME}/tools
 fi
 
+if [ -d ${ANDROID_HOME}/emulator ]; then
+  export PATH=${PATH}:${ANDROID_HOME}/emulator
+fi
+
 if [ -d ${ANDROID_HOME}/platform-tools ]; then
   export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 fi
