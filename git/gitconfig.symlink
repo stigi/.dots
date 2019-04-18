@@ -30,7 +30,6 @@
   stat    = log -1 --stat
   mr      = !git-lab mr
   mrs     = !git-lab mrs
-
   lg      = "log --all --decorate --oneline --graph"
   l50     = "!git log --abbrev-commit --date=short --pretty=format:'%x00%h%x00%cd%x00%s%x00%an%x00%d' | gawk -F '\\0' '{ printf \"%s\\033[31m%s\\033[0m \\033[32m%s\\033[0m  %-50s \\033[30;1m%s\\033[0m\\033[33m%s\\n\", $1, $2, $3, gensub(/(.{49}).{2,}/, \"\\\\1…\",\"g\",$4), $5, $6 }' | less -R"
   l80     = "!git log --abbrev-commit --date=short --pretty=format:'%x00%h%x00%cd%x00%s%x00%an%x00%d' | gawk -F '\\0' '{ printf \"%s\\033[31m%s\\033[0m \\033[32m%s\\033[0m  %-80s \\033[30;1m%s\\033[0m\\033[33m%s\\n\", $1, $2, $3, gensub(/(.{79}).{2,}/, \"\\\\1…\",\"g\",$4), $5, $6 }' | less -R"
@@ -41,6 +40,9 @@
   oldest-ancestor = !zsh -c 'diff --old-line-format= --new-line-format= <(git rev-list --first-parent \"${1:-master}\") <(git rev-list --first-parent \"${2:-HEAD}\") | head -1' -
   branchdiff = !sh -c \"git diff `git oldest-ancestor`..\"
   branchlog = !sh -c \"git log `git oldest-ancestor`..\"
+  pushf = push --force-with-lease
+  branch-clean= "!git branch --merged | egrep -v '(^\\*|master|develop)' | xargs git branch -d"
+  cleanup = "!git fetch -ap && git branch-clean"
 
 [color]
   diff   = auto
@@ -68,4 +70,6 @@
   # push the current branch to update a branch with the same name on the receiving end
   default = current
 [rebase]
-	autoStash = true
+  autoStash = true
+[pull]
+  rebase = true
