@@ -5,7 +5,7 @@
   protocol = https
 
 [pager]
-  diff = diff-so-fancy | less --tabs=1,5 -RFX
+  difff = diff-so-fancy | less --tabs=1,5 -RFX
   show = diff-so-fancy | less --tabs=1,5 -RFX
 
 [alias]
@@ -25,6 +25,10 @@
   rbis    = rebase -i origin/stable
   rbim    = rebase -i origin/master
   rbid    = rebase -i origin/develop
+  rbisf   = "!git fetch origin stable && git rbis"
+  rbimf   = "!git fetch origin master && git rbim"
+  rbidf   = "!git fetch origin develop && git rbid"
+  rbmf    = "!git fetch origin master && git rebase origin/master"
   shelve  = stash
   unshelve = stash pop
   stat    = log -1 --stat
