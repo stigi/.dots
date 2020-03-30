@@ -9,7 +9,6 @@ setopt prompt_subst
 ZSH_THEME_PROMPT_PATH_COLOR=$FG[214]
 
 source $DOTFILES_DIR/git/prompt
-source $DOTFILES_DIR/hg/prompt
 
 function ssh_prompt() {
   if [ $SSH_CONNECTION ]; then
@@ -26,8 +25,6 @@ function left_prompt() {
   if [ "$cols" -gt 88 ]; then
     if [ $(in_git) ]; then
       echo "$(ssh_prompt)%{$ZSH_THEME_PROMPT_PATH_COLOR%}%2c $(git_prompt)%{$reset_color%}"
-    elif [ $(in_hg) ]; then
-      echo "$(ssh_prompt)%{$ZSH_THEME_PROMPT_PATH_COLOR%}%2c $(hg_prompt)%{$reset_color%}"
     else
       echo "$(ssh_prompt)%{$ZSH_THEME_PROMPT_PATH_COLOR%}%2c %{$reset_color%}"
     fi
@@ -41,8 +38,6 @@ function right_prompt() {
   if [ "$cols" -le 88 ]; then
     if [ $(in_git) ]; then
       echo "$(git_dirty_state)$(git_prompt)%{$reset_color%}"
-    elif [ $(in_hg) ]; then
-      echo "$(hg_short_prompt)%{$reset_color%}"
     fi
   fi
 }
