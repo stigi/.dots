@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
+cd "$(dirname "$0")/.."
+source script/include
 
-info 'installing nvm'
 # If on Mac, check if nvm is already
-echo "  Installing nvm for you."
+info "  Installing nvm for you."
 brew install nvm
 
 exit 0
