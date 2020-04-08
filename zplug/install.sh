@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-cd "$(dirname "$0")/.."
-source script/include
+source "$(dirname "$0")/../script/include"
 
 info 'installing zplug'
 # If on Mac, check for Homebrew
