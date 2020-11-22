@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-DOTFILES_ROOT="$(dirname "$0")/.."
-
 echo ''
 
 info () {
