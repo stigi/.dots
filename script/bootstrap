@@ -26,7 +26,7 @@ setup_gitconfig () {
     user ' - What is your github author email?'
     read -e git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitcredentials.symlink.template > git/gitcredentials.symlink
+    sed -e "s/Change your ~\/.gitcredentials/$git_authorname/g" -e "s/hi+this-is-not-ullrich@ullrich.is/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitcredentials.symlink.template > git/gitcredentials.symlink
 
     success 'git credentials'
   fi
