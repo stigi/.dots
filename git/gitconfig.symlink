@@ -21,7 +21,6 @@
   amen    = commit --amend --no-edit
   count   = !git shortlog -sn
   hub     = !hub
-  x       = !gitx
   rbis    = rebase -i origin/stable
   rbim    = rebase -i origin/master
   rbid    = rebase -i origin/develop
@@ -32,9 +31,9 @@
   shelve  = stash
   unshelve = stash pop
   stat    = log -1 --stat
-  mr      = !git-lab mr
-  mrs     = !git-lab mrs
-  lg      = "log --all --decorate --oneline --graph"
+  lg      = "log --decorate --branches=* --oneline --graph origin/master.."
+  lga     = "log --decorate --oneline --graph --branches=*"
+  lgall   = "log --decorate --oneline --graph --all"
   l50     = "!git log --abbrev-commit --date=short --pretty=format:'%x00%h%x00%cd%x00%s%x00%an%x00%d' | gawk -F '\\0' '{ printf \"%s\\033[31m%s\\033[0m \\033[32m%s\\033[0m  %-50s \\033[30;1m%s\\033[0m\\033[33m%s\\n\", $1, $2, $3, gensub(/(.{49}).{2,}/, \"\\\\1…\",\"g\",$4), $5, $6 }' | less -R"
   l80     = "!git log --abbrev-commit --date=short --pretty=format:'%x00%h%x00%cd%x00%s%x00%an%x00%d' | gawk -F '\\0' '{ printf \"%s\\033[31m%s\\033[0m \\033[32m%s\\033[0m  %-80s \\033[30;1m%s\\033[0m\\033[33m%s\\n\", $1, $2, $3, gensub(/(.{79}).{2,}/, \"\\\\1…\",\"g\",$4), $5, $6 }' | less -R"
   lg50    = "!git log --graph --color=always --abbrev-commit --date=relative --pretty=format:'%x00%h%x00%s%x00%cd%x00%an%x00%d' | gawk -F '\\0' '{ printf \"%s\\033[31m%s\\033[0m %-50s \\033[32m%14s\\033[0m \\033[30;1m%s\\033[0m\\033[33m%s\\n\", $1, $2, gensub(/(.{49}).{2,}/, \"\\\\1…\",\"g\",$3), $4, $5, $6 }' | less -R"
@@ -46,7 +45,15 @@
   branchlog = !sh -c \"git log `git oldest-ancestor`..\"
   pushf = push --force-with-lease
   branch-clean= "!git branch --merged | egrep -v '(^\\*|master|develop)' | xargs git branch -d"
-  cleanup = "!git fetch -ap && git branch-clean"
+  cleanup = !git fetch -ap && git branch-clean
+  branch-stat = !git diff --shortstat `git merge-base HEAD origin/master`
+  abs = !git absorb -b `git merge-base HEAD origin/master` -r
+  set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+  bu = !git branch | grep ullrich
+  pu = push -u
+  wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
+  recent = !git for-each-ref --sort=-committerdate refs/heads --color=always --format='%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)'|column -ts'|'
+	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
 
 [color]
   diff   = auto
@@ -77,3 +84,5 @@
   autoStash = true
 [pull]
   rebase = true
+[init]
+	defaultBranch = main
