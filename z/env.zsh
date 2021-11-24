@@ -1,6 +1,6 @@
 # Z jump
-if test -f /usr/local/etc/profile.d/z.sh
+if test -f $HOMEBREW_PREFIX/etc/profile.d/z.sh
 then
-  . /usr/local/etc/profile.d/z.sh
+  . $HOMEBREW_PREFIX/etc/profile.d/z.sh
 fi
 

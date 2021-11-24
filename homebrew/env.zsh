@@ -1,4 +1,9 @@
-if test $(which brew &>/dev/null)
+if [ -f /opt/homebrew/bin/brew ]
 then
-  export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+if [ -f /usr/local/bin/brew ]
+then
+  eval "$(/usr/local/bin/brew shellenv)"
 fi
