@@ -29,6 +29,8 @@ typeset -U config_files
 config_files=($DOTFILES_DIR/**/*.zsh)
 
 # 1. load envs (exports and stuff)
+source $DOTFILES_DIR/homebrew/env.zsh
+
 for file in ${(M)config_files:#*/env.zsh}
 do
   source $file
