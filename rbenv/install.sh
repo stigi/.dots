@@ -1,47 +1,7 @@
 #!/bin/sh
+source "$(dirname "$0")/../script/include"
 
 set -e
-
-user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
-
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-info () {
-  printf "  [ \033[00;34m..\033[0m ] $1"
-}
-
-user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
-
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
-}
-
-question_yn () {
-  while true; do
-    user "$1"
-    echo ''
-
-    read -e yn
-    if [[ $yn == "y" || $yn == "Y" ]]; then
-      return 0
-    fi
-    if [[ $yn == "n" || $yn == "N" || $yn == "" ]]; then
-      return 1
-    fi
-  done
-}
 
 install_rbenv() {
   info "Installing rbenv."

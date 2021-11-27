@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-echo ''
-
 info () {
-  printf "  [ \033[00;34m..\033[0m ] $1"
+  printf "  [ \033[00;33mINFO\033[0m ] $1\n"
 }
 
 user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+  printf "\r  [ \033[0;33m?\033[0m ] $1\n"
 }
 
 success () {
@@ -18,4 +16,19 @@ fail () {
   printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
   echo ''
   exit
+}
+
+question_yn () {
+  while true; do
+    user "$1"
+    echo ''
+
+    read -e yn
+    if [[ $yn == "y" || $yn == "Y" ]]; then
+      return 0
+    fi
+    if [[ $yn == "n" || $yn == "N" || $yn == "" ]]; then
+      return 1
+    fi
+  done
 }
