@@ -1,3 +1,6 @@
+# Force VI Mode
+bindkey -v
+
 # Pressing up/down will search the history
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
@@ -9,9 +12,6 @@ bindkey "^[3;5~" delete-char
 bindkey "\e[3~" delete-char
 
 # Reverse search ^R
-bindkey "^R" history-incremental-search-backward
-
-# Force VI Mode
-bindkey -v
+bindkey "^R" history-incremental-pattern-search-backward
 
 export KEYTIMEOUT=1
