@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-source "$(dirname "$0")/../script/include"
-
-if which direnv &> /dev/null; then
+if [ -f $HOMEBREW_PREFIX/bin/direnv ]
+then
   export DIRENV_LOG_FORMAT=
-  eval "$(direnv hook $SHELL)"
+  eval "$($HOMEBREW_PREFIX/bin/direnv hook $SHELL)"
 fi
