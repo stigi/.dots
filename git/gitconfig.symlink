@@ -5,8 +5,10 @@
   protocol = https
 
 [pager]
-  difff = diff-so-fancy | less --tabs=1,5 -RFX
-  show = diff-so-fancy | less --tabs=1,5 -RFX
+  difftool = true
+# [pager]
+#   difff = diff-so-fancy | less --tabs=1,5 -RFX
+#   show = diff-so-fancy | less --tabs=1,5 -RFX
 
 [alias]
   sshow   = "!f() { git stash show stash^{/$*} -p; }; f"
@@ -44,7 +46,7 @@
   branchdiff = !sh -c \"git diff `git oldest-ancestor`..\"
   branchlog = !sh -c \"git log `git oldest-ancestor`..\"
   pushf = push --force-with-lease
-  branch-clean= "!git branch --merged | egrep -v '(^\\*|master|develop)' | xargs git branch -d"
+  branch-clean = "!git branch --merged | egrep -v '(^\\*|master|develop)' | xargs git branch -d"
   cleanup = !git fetch -ap && git branch-clean
   branch-stat = !git diff --shortstat `git merge-base HEAD origin/master`
   abs = !git absorb -b `git merge-base HEAD origin/master` -r
@@ -54,6 +56,7 @@
   wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
   recent = !git for-each-ref --sort=-committerdate refs/heads --color=always --format='%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)'|column -ts'|'
 	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+  b = ! git checkout $(git branch | fzf | vim -es '+0norm 2x' '+%print' '+q!' /dev/stdin)
 
 [color]
   diff   = auto
@@ -81,6 +84,7 @@
 [push]
   # push the current branch to update a branch with the same name on the receiving end
   default = current
+	autoSetupRemote = true
 [rebase]
   autoStash = true
 [pull]
@@ -89,3 +93,23 @@
   defaultBranch = main
 [interactive]
   diffFilter = diff-so-fancy --patch
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Ullrich Schäfer
+	email = hi+github@ullrich.is
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID/Pj/FR60WpG0vwNl254Bnm3sQ2m4YISAKnboz4G8nI
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+  gpgsign = true
+[diff]
+  external = difft
+  tool = difftastic
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"

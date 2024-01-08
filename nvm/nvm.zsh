@@ -1,6 +1,6 @@
 # NVM
 
-if test ! $(which nvm &>/dev/null)
+if [ -d $HOMEBREW_PREFIX/opt/nvm ]
 then
   export NVM_DIR="$HOME/.nvm"
   [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && . "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"  # This loads nvm

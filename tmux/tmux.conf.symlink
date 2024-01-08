@@ -36,7 +36,8 @@ set -g history-limit 10000
 set -g default-terminal "xterm-256color"
 
 # mouse scroll
-setw -g mode-mouse on
+set -g mode-mouse on
+set -g mouse-select-pane on
 
 # open new session on tmux a if none was present
 new-session

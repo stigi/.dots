@@ -2,7 +2,7 @@
 source "$(dirname "$0")/../script/include"
 
 if question_yn ' - Install Android Studio? [y/N]'; then
-  info 'installing Android Studio'
+  info 'Installing Android Studio. This will take a while...'
 else
   info 'Skipping Android Studio.'
   exit 0
@@ -27,8 +27,8 @@ success '  Installed Platform SDK Tools'
 sdkmanager --install "ndk;21.4.7075529"
 success '  Installed NDK 21.4.7075529'
 
-sdkmanager --install "cmake;3.18.1"
-success '  Installed cmake 3.18.1'
+sdkmanager --install "cmake;3.10.2.4988404"
+success '  Installed cmake 3.10.2'
 
 info 'Installing Android SDKs'
 

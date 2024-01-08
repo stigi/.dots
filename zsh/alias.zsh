@@ -6,3 +6,6 @@ alias c="code --enable-proposed-api ms-vscode.vscode-github-issue-notebooks"
 alias rn-start="yarn --cwd mobile-app start"
 alias to-gif="ffmpeg -vf \"fps=10,scale=320:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse\" -loop 0 out.gif -i"
 alias wetter="curl wttr.in/\?2FQ"
+alias xcpretty=xcbeautify
+alias transit2edn="jet -i transit -o edn -p"
+alias sim="open -a simulator"
