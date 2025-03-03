@@ -19,8 +19,8 @@ if [ -d ${ANDROID_HOME}/cmdline-tools/latest/bin ]; then
   export PATH=${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin
 fi
 
-if [ -d "/Applications/Android Studio.app/Contents/jre/Contents/Home" ]; then
-  export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/Contents/Home
+if [ -d "/Applications/Android Studio.app/Contents/jbr/Contents/Home" ]; then
+  export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
 fi
 
 function emulator { ( cd "$(dirname "$(whence -p emulator)")" && ./emulator "$@"; ) }
