@@ -24,3 +24,18 @@ if [ -d "/Applications/Android Studio.app/Contents/jbr/Contents/Home" ]; then
 fi
 
 function emulator { ( cd "$(dirname "$(whence -p emulator)")" && ./emulator "$@"; ) }
+
+
+
+# ASDF Java
+
+function asdf_update_java_home {
+  if asdf current java >/dev/null 2>&1
+  then
+      export JAVA_HOME=$(asdf where java)
+  fi
+}
+
+# add-zsh-hook adds to precmd_functions; a plain precmd() would replace other hooks
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd asdf_update_java_home
