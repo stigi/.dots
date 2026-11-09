@@ -12,8 +12,7 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 if type brew &>/dev/null
 then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
+  # compinit runs one time in zshrc, after all fpath changes
+  typeset -U fpath FPATH
+  FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:${FPATH}"
 fi

@@ -31,7 +31,8 @@ config_files=($DOTFILES_DIR/**/*.zsh)
 # 1. load envs (exports and stuff)
 source $DOTFILES_DIR/homebrew/env.zsh
 
-for file in ${(M)config_files:#*/env.zsh}
+# homebrew/env.zsh is already loaded above, so skip it here
+for file in ${${(M)config_files:#*/env.zsh}:#*/homebrew/env.zsh}
 do
   source $file
 done
@@ -43,10 +44,14 @@ do
 done
 
 # initialize autocomplete here, otherwise functions won't be loaded
+# Do the full (slow) security check at most one time each day.
+# Other shells use the dump with -C (no check).
 autoload -U compinit
-compinit # -i silently ignores "insecure" files
-         # -u automatically use "insecure" files
-         # -C disable checking for "inseccure" files
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh-24) ]]; then
+  compinit -C
+else
+  compinit
+fi
 
 # 3. load completions after autocomplete loaded
 # make sure those files call out to compdef to register the completion
