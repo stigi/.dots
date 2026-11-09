@@ -2,6 +2,12 @@
   path = .gitcredentials
   path = .gitsign
 
+# Work identity for any repo with a pitch-io remote
+[includeIf "hasconfig:remote.*.url:https://github.com/pitch-io/**"]
+  path = .gitconfig-pitch
+[includeIf "hasconfig:remote.*.url:git@github.com:pitch-io/**"]
+  path = .gitconfig-pitch
+
 [hub]
   protocol = https
 
