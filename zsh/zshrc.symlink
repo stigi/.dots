@@ -85,3 +85,12 @@ eval "$(starship init zsh)"
 eval "$(atuin init zsh)"
 
 export GPG_TTY=$(tty)
+
+# Cargo
+export PATH="$HOME/.cargo/bin:$PATH"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+# ASDF
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
