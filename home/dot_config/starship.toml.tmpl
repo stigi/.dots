@@ -1,0 +1,39 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts no blank line between shell prompts
+add_newline = false
+
+# A minimal left prompt
+format = """$username$hostname$sudo$directory$git_branch$git_commit$git_status$git_state$character"""
+
+# move the rest of the prompt to the right
+right_format = """$env_var$battery"""
+
+command_timeout = 1000
+
+[git_branch]
+truncation_length = 40
+#truncation_symbol = ''
+
+[battery]
+full_symbol = '🔋 '
+charging_symbol = '⚡️ '
+discharging_symbol = '💀 '
+[[battery.display]]
+threshold = 30
+style = 'bold red'
+
+[hostname]
+ssh_only = false
+detect_env_vars = [ ]
+ssh_symbol = ""
+format = '[$ssh_symbol$hostname]($style) '
+{{- /* The host aliases come from the local chezmoi data ([data.hostAliases]) */}}
+{{- if .hostAliases }}
+aliases = { {{ range $i, $host := keys .hostAliases | sortAlpha }}{{ if $i }}, {{ end }}{{ $host | quote }} = {{ index $.hostAliases $host | quote }}{{ end }} }
+{{- end }}
+
+[git_metrics]
+added_style = 'bold blue'
+format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
