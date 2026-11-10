@@ -1,0 +1,5 @@
+# Files for Pitch work machines only
+{{ if not .work }}
+.gitconfig-pitch
+.config/zsh/pitch.env.zsh
+{{ end }}

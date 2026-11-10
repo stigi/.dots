@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-source "$(dirname "$0")/../script/include"
+# Optional Android setup. Run this script manually; chezmoi does not run it.
+source "$(dirname "$0")/include"
 
 if question_yn ' - Install Android Studio? [y/N]'; then
   info 'Installing Android Studio. This will take a while...'
@@ -13,7 +14,7 @@ success '  Installed Android Studio for you'
 
 
 # sourcing env to make the sdkmanager available on PATH
-source "$(dirname "$0")/env.zsh"
+source "$HOME/.config/zsh/android.env.zsh"
 
 sdkmanager --install "emulator"
 success '  Installed Emulator'

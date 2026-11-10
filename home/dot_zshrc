@@ -1,10 +1,10 @@
 # We're going to need UTF-8, badly
-LANG=en_US.UTF-8
-LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 
-# Dynamically determine the folder where the dotfiles were installed into
-DOTFILES_DIR="$(dirname `readlink -n ~/.zshrc`)/.."
+# chezmoi installs the zsh components into this folder
+ZSH_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
 # .localrc is a place to put host specific stuff
 if [[ -a ~/.localrc ]]
@@ -24,21 +24,21 @@ setopt correct      # try to correct the spelling of commands
 
 
 # Load all dotfile components in 3 steps
-# all of our zsh files
+# Component names: <topic>.env.zsh, <topic>.completion.zsh, <name>.zsh
 typeset -U config_files
-config_files=($DOTFILES_DIR/**/*.zsh)
+config_files=($ZSH_CONFIG_DIR/*.zsh(N))
 
 # 1. load envs (exports and stuff)
-source $DOTFILES_DIR/homebrew/env.zsh
+source $ZSH_CONFIG_DIR/homebrew.env.zsh
 
-# homebrew/env.zsh is already loaded above, so skip it here
-for file in ${${(M)config_files:#*/env.zsh}:#*/homebrew/env.zsh}
+# homebrew.env.zsh is already loaded above, so skip it here
+for file in ${${(M)config_files:#*.env.zsh}:#*/homebrew.env.zsh}
 do
   source $file
 done
 
 # 2. load everything but envs and completions
-for file in ${${config_files:#*/env.zsh}:#*/completion.zsh}
+for file in ${${config_files:#*.env.zsh}:#*.completion.zsh}
 do
   source $file
 done
@@ -55,7 +55,7 @@ fi
 
 # 3. load completions after autocomplete loaded
 # make sure those files call out to compdef to register the completion
-for file in ${(M)config_files:#*/completion.zsh}
+for file in ${(M)config_files:#*.completion.zsh}
 do
   source $file
 done
@@ -63,26 +63,12 @@ done
 # clean up
 unset config_files
 
-export PATH="/usr/local/bin:$PATH"
-export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
-export PATH="$HOME/.npm-packages/bin:$PATH"
-
-# zplug ZSH plugins
-export ZPLUG_HOME=$HOMEBREW_PREFIX/opt/zplug
-source $ZPLUG_HOME/init.zsh
-
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug 'supercrabtree/k'
-zplug 'rupa/z', use:z.sh
-
-zplug load
-
-# Iterm 2 integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 eval "$(starship init zsh)"
-eval "$(atuin init zsh)"
+
+# fzf: Ctrl-R fuzzy history, Ctrl-T file search, Alt-C cd, ** <Tab> completion
+if command -v fzf >/dev/null 2>&1; then source <(fzf --zsh); fi
 
 export GPG_TTY=$(tty)
 

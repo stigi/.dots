@@ -1,20 +1,45 @@
 # .dots
 
-My dotfiles. Please have a look.
-
-They are based on [zsh](http://zsh.sourceforge.net) which we all love.
-
+My dotfiles for macOS and [zsh](https://www.zsh.org). [chezmoi](https://www.chezmoi.io) manages them.
 
 ## Installation
 
-1. Clone it into `~` (other locations should work, but that's what I'd suggest)
-2. Bootstrap by running `script/bootstrap`
+On a new Mac:
 
-This will create a few symlinks into your home directory. It will also install [homebrew](brew.sh) and might in the future install more command line necessities.
+```sh
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply stigi/.dots
+```
 
+chezmoi asks for the git author name and email, and if the Mac is a Pitch work machine. Then it does these steps:
+
+1. It installs [Homebrew](https://brew.sh) and the packages that the dotfiles use.
+2. It writes the files into the home directory.
+3. It installs the vim plugins.
+
+## Layout
+
+| Path | Content |
+|---|---|
+| `home/` | The chezmoi source state. `.chezmoiroot` points to this folder. |
+| `home/dot_config/exact_zsh/` | The zsh components. `~/.zshrc` loads them from `~/.config/zsh`. |
+| `home/.chezmoiignore` | The files that only a Pitch work machine gets. |
+| `script/install-android.sh` | Optional Android setup. Run it manually. |
+
+The zsh components load in three steps:
+
+1. `<topic>.env.zsh`: exports and `PATH` changes. `homebrew.env.zsh` loads first.
+2. All other `*.zsh` files.
+3. `<topic>.completion.zsh`: these load after `compinit`.
+
+## Daily use
+
+```sh
+chezmoi edit ~/.zshrc   # edit the source file
+chezmoi diff            # show what an apply changes
+chezmoi apply           # write the changes into the home directory
+chezmoi cd              # open a shell in the source repository
+```
 
 ## Inspiration & Credits
 
-Most of the stuff in here is based [holman/dotfiles](https://github.com/holman/dotfiles/) and [robb/.dotfiles](https://github.com/robb/.dotfiles) (which itself took many things from holman/dotfiles). Thanks guys!
-
-In general, most of the stuff has been copied from various places. Let's just call it common knowledge of the internet :wink:
+The first version was based on [holman/dotfiles](https://github.com/holman/dotfiles/) and [robb/.dotfiles](https://github.com/robb/.dotfiles). Thanks!

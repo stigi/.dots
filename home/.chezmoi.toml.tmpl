@@ -1,0 +1,18 @@
+{{- /* chezmoi asks these questions one time, on `chezmoi init`. */ -}}
+{{- $name := promptStringOnce . "name" "Git author name" -}}
+{{- $email := promptStringOnce . "email" "Git author email" -}}
+{{- $signingkey := promptStringOnce . "signingkey" "Git signing key for the default identity (empty for none)" -}}
+{{- $work := promptBoolOnce . "work" "Is this a Pitch work machine" -}}
+{{- $workEmail := "" -}}
+{{- if $work -}}
+{{-   $workEmail = promptStringOnce . "workEmail" "Pitch email address" -}}
+{{- end -}}
+
+sourceDir = {{ .chezmoi.workingTree | quote }}
+
+[data]
+  name = {{ $name | quote }}
+  email = {{ $email | quote }}
+  signingkey = {{ $signingkey | quote }}
+  work = {{ $work }}
+  workEmail = {{ $workEmail | quote }}
