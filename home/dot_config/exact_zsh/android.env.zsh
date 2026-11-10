@@ -37,5 +37,7 @@ function asdf_update_java_home {
 }
 
 # add-zsh-hook adds to precmd_functions; a plain precmd() would replace other hooks
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd asdf_update_java_home
+if command -v asdf >/dev/null 2>&1; then
+  autoload -Uz add-zsh-hook
+  add-zsh-hook precmd asdf_update_java_home
+fi

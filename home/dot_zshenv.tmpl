@@ -1,0 +1,16 @@
+# zsh reads this file for each shell, also for scripts. Keep it small.
+
+# uv and other user tools
+export PATH="$HOME/.local/bin:$PATH"
+{{- if eq .chezmoi.os "darwin" }}
+export PATH="/opt/homebrew/bin:$PATH"
+{{- end }}
+
+# Rust
+if [ -f "$HOME/.cargo/env" ]; then . "$HOME/.cargo/env"; fi
+{{- if eq .chezmoi.os "darwin" }}
+
+# Jev/Typesafe. The key is in the macOS Keychain:
+#   security add-generic-password -U -a "$USER" -s typesafe-api-key -w
+export TYPESAFE_API_KEY="$(security find-generic-password -a "$USER" -s typesafe-api-key -w 2>/dev/null)"
+{{- end }}

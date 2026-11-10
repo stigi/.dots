@@ -1,3 +1,5 @@
+# granted: tell it that the assume alias exists
+export GRANTED_ALIAS_CONFIGURED="true"
 alias assume='source $(asdf which assume)'
 export PATH="$HOME/Projects/pitch-app/scripts:$PATH"
 

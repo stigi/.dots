@@ -1,3 +1,8 @@
+# asdf is for macOS only
+{{ if ne .chezmoi.os "darwin" }}
+.tool-versions
+{{ end }}
+
 # Files for Pitch work machines only
 {{ if not .work }}
 .gitconfig-pitch
