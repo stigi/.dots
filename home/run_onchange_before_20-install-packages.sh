@@ -19,4 +19,5 @@ brew "git-interactive-rebase-tool"
 brew "starship"
 brew "tmux"
 brew "z"
+cask "secretive"
 BREWFILE

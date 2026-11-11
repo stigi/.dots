@@ -10,6 +10,12 @@ export PATH="/opt/homebrew/bin:$PATH"
 if [ -f "$HOME/.cargo/env" ]; then . "$HOME/.cargo/env"; fi
 {{- if eq .chezmoi.os "darwin" }}
 
+# Secretive keeps the SSH keys in the Secure Enclave. ssh and git signatures use its agent.
+# A remote login keeps the agent that the client forwards.
+SECRETIVE_SOCK="$HOME/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh"
+if [ -z "$SSH_CONNECTION" ] && [ -S "$SECRETIVE_SOCK" ]; then export SSH_AUTH_SOCK="$SECRETIVE_SOCK"; fi
+unset SECRETIVE_SOCK
+
 # Jev/Typesafe. The key is in the macOS Keychain:
 #   security add-generic-password -U -a "$USER" -s typesafe-api-key -w
 export TYPESAFE_API_KEY="$(security find-generic-password -a "$USER" -s typesafe-api-key -w 2>/dev/null)"

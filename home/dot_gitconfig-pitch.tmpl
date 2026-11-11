@@ -1,6 +1,12 @@
 [user]
   email = {{ .workEmail }}
-  signingkey = ~/.ssh/id_ed25519_pitch_signing.pub
+  # The Secretive key "pitch-signing". script/link-secretive-keys.sh makes this link.
+  signingkey = ~/.ssh/secretive/pitch-signing.pub
+[core]
+  # Pitch repositories use the GitHub account for work. Its Secretive key has the comment
+  # "<work email> - Github". script/link-secretive-keys.sh makes this link.
+  # -F /dev/null ignores ~/.ssh/config. With that file, ssh offers the key of the personal account first.
+  sshCommand = ssh -F /dev/null -o IdentitiesOnly=yes -o IdentityAgent=~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh -i ~/.ssh/secretive/{{ .workEmail }}-Github.pub
 [gpg]
   format = ssh
 [gpg "ssh"]
