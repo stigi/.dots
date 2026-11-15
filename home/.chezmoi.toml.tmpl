@@ -1,7 +1,7 @@
 {{- /* chezmoi asks these questions one time, on `chezmoi init`. */ -}}
 {{- $name := promptStringOnce . "name" "Git author name" -}}
 {{- $email := promptStringOnce . "email" "Git author email" -}}
-{{- $signingkey := promptStringOnce . "signingkey" "Git signing key for the default identity (empty for none)" -}}
+{{- $signingkey := promptStringOnce . "signingkey" "Git signing key for the default identity, for example ~/.ssh/secretive/github-signing.pub (empty for none)" -}}
 {{- $work := promptBoolOnce . "work" "Is this a Pitch work machine" -}}
 {{- $workEmail := "" -}}
 {{- if $work -}}

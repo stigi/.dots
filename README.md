@@ -23,9 +23,19 @@ chezmoi asks for the git author name and email, and if the Mac is a Pitch work m
 A key cannot leave the Mac on which you made it. On a new Mac, do these steps:
 
 1. Open Secretive and let it install its agent.
-2. Make the keys. A Pitch work machine needs a key with the name `pitch-signing`, and a key with the comment `<work email> - Github` for the GitHub account for work.
+2. Make the keys. The configs use these key names:
+
+   | Key name | Use |
+   |---|---|
+   | `github` | Login to GitHub. |
+   | `github-signing` | Signs commits and tags. Give `~/.ssh/secretive/github-signing.pub` as the signing key when chezmoi asks. |
+   | `git.ullrich.is` | Login to the Forgejo server. |
+   | `git.ullrich.is-signing` | Signs commits and tags in repositories with a `git.ullrich.is` remote. |
+
+   A Pitch work machine also needs a key with the name `pitch-signing`, and a key with the comment `<work email> - Github` for the GitHub account for work.
 3. Run `script/link-secretive-keys.sh`. It links each public key to `~/.ssh/secretive/<key name>.pub`. If a key has a custom comment in Secretive, the link gets the comment as its name.
-4. Add the public keys to the hosts and to GitHub.
+4. Add the public keys to the hosts, to GitHub and to Forgejo. Add each signing key as a signing key.
+5. Run `chezmoi apply`. It writes `~/.gitconfig-git.ullrich.is` only if the link for `git.ullrich.is-signing` exists.
 
 `~/.ssh/config` is not in this repository. For a host that uses a Secretive key, it has these lines:
 

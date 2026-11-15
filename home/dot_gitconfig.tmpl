@@ -4,6 +4,18 @@
 {{- if .signingkey }}
   signingkey = {{ .signingkey }}
 {{- end }}
+{{- if .signingkey }}
+
+# Sign all commits and tags with the signing key
+{{- if or (hasSuffix ".pub" .signingkey) (hasPrefix "ssh-" .signingkey) (hasPrefix "ecdsa-" .signingkey) (hasPrefix "key::" .signingkey) }}
+[gpg]
+  format = ssh
+{{- end }}
+[commit]
+  gpgsign = true
+[tag]
+  gpgsign = true
+{{- end }}
 
 [credential]
   helper = osxkeychain
@@ -13,6 +25,15 @@
   path = .gitconfig-pitch
 [includeIf "hasconfig:remote.*.url:git@github.com:pitch-io/**"]
   path = .gitconfig-pitch
+
+# Signing key for any repo with a git.ullrich.is (Forgejo) remote.
+# chezmoi writes this file only if the Secretive key exists, see .chezmoiignore.
+[includeIf "hasconfig:remote.*.url:https://git.ullrich.is/**"]
+  path = .gitconfig-git.ullrich.is
+[includeIf "hasconfig:remote.*.url:git@git.ullrich.is:**"]
+  path = .gitconfig-git.ullrich.is
+[includeIf "hasconfig:remote.*.url:ssh://git@git.ullrich.is/**"]
+  path = .gitconfig-git.ullrich.is
 
 [pager]
   difftool = true

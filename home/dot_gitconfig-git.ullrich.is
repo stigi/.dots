@@ -1,0 +1,9 @@
+[user]
+  # The Secretive key "git.ullrich.is-signing". script/link-secretive-keys.sh makes this link.
+  signingkey = ~/.ssh/secretive/git.ullrich.is-signing.pub
+[gpg]
+  format = ssh
+[commit]
+  gpgsign = true
+[tag]
+  gpgsign = true

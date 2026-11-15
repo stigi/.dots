@@ -8,3 +8,8 @@
 .gitconfig-pitch
 .config/zsh/pitch.env.zsh
 {{ end }}
+
+# The Forgejo signing config needs the Secretive key "git.ullrich.is-signing"
+{{ if not (stat (joinPath .chezmoi.homeDir ".ssh/secretive/git.ullrich.is-signing.pub")) }}
+.gitconfig-git.ullrich.is
+{{ end }}
