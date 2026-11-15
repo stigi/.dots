@@ -58,7 +58,7 @@
   branch-clean = "!git branch --merged | egrep -v '(^\\*|^\\+|main|master|develop)' | xargs git branch -d"
   cleanup = !git fetch -ap && git branch-clean
   branch-stat = "!git diff --shortstat $(git merge-base HEAD origin/$(git default-branch))"
-  abs = "!git absorb -b $(git merge-base HEAD origin/$(git default-branch)) -r"
+  abs = !git absorb -r
   set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
   bu = !git branch | grep ullrich
   pu = push -u
@@ -114,7 +114,7 @@
 	sort = -committerdate
 [absorb]
     maxStack = 50
-    oneFixupPerCommit = false
+    oneFixupPerCommit = true
     fixupTargetAlwaysSHA = true
 [sequence]
 	editor = interactive-rebase-tool
